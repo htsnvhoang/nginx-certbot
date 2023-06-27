@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  nginx_certbot:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: nginx_certbot
+    env_file:
+      - .env
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./sample-config-nginx/:/nginx-config/
+    environment:
+      - CONFIG_SSL_GROUP_1=${API_DOMAIN_1};server_api.conf
+      - CONFIG_SSL_GROUP_2=${API_DOMAIN_2};server_api_2.conf
