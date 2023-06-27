@@ -1,4 +1,5 @@
 # nginx-certbot
+You can pull it from docker hub: nvhoanghts/nginx-certbot:1.0
 - Map file config nginx to volume path /nginx-config container
 > Ex: ./sample-config-nginx/:/nginx-config/
 - Set env variable for domain you want to create certificate with fomat:

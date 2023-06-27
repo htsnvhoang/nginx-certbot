@@ -1,0 +1,34 @@
+name: Build & Deploy Lyly Site Nginx SSl to DockerHub
+
+on:
+  push:
+    branches:
+      - deploy_hub
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build_image_to_dockerhub:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+
+      - name: Build docker
+        run: |
+          docker build -t nvhoanghts/nginx-certbot:1.0 .
+      
+      - name: Login docker hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{secrets.DOCKER_HUB_USER}}
+          password: ${{secrets.DOCKER_HUB_PASS}}
+      
+      - name: Push image to docker hub
+        run: docker push nvhoanghts/nginx-certbot:1.0
+
+      - name: Finish deploy
+        run: echo "We have done !!!"
+
